@@ -1,0 +1,77 @@
+#! /bin/bash
+
+declare User_Input="something"
+declare winner="nobody"
+declare -a rng=("rock" "paper" "scissors")
+declare CPU_Input=""
+mkdir -p "GamePlay_"$(date +"%B_%Y")""
+printf "\n-----ROCK,PAPER,SCISSORS GAME-----\n"
+printf "type \"stop\" to exit this program\n\n"
+
+# First check if input is "stop" beacuse there is no [do while loop]
+printf "  user input: " 
+read User_Input
+User_Input=$(echo "$User_Input" | tr '[:upper:]' '[:lower:]')
+
+while [ "$User_Input" != "stop" ]
+ do
+  CPU_Input=${rng[ $RANDOM % 3 ]}
+  printf  "  computer input: $CPU_Input\n"
+  
+  #Computes the answer 
+  if [ "$User_Input" == "$CPU_Input" ]
+   then
+	printf "\tdraw: none - $User_Input DRAWS_WITH $CPU_Input \n\n"
+	winner="none" 
+   else
+    case "$User_Input" in
+	paper)
+		if [ $CPU_Input == rock ]
+		then 
+		winner="User"
+		else
+		winner="CPU"
+		fi
+		;;	 
+	rock)
+		if [ $CPU_Input == scissors ]
+                then
+                winner="User"
+                else
+                winner="CPU"
+                fi
+		;;
+	scissors)
+		if [ $CPU_Input == paper ]
+                then
+                winner="User"
+                else
+                winner="CPU"
+                fi
+		;;	
+   esac
+
+   if [ $winner == User ]
+    then 
+     printf "\twinner: $winner - $User_Input BEATS $CPU_Input\n\n"
+     echo ""$(date +"%T_%b_%d_%Y")"   $User_Input   $CPU_Input   $winner" >> GamePlay_$(date +"%B_%Y")/$0_"$winner"_$(date +"%b_%d_%Y_%R").out
+    elif [ $winner == CPU ]
+	 then
+      printf "\twinner: $winner - $CPU_Input BEATS $User_Input\n\n"
+	  echo ""$(date +"%T_%b_%d_%Y")"   $User_Input   $CPU_Input   $winner" >> GamePlay_$(date +"%B_%Y")/$0_"$winner"_$(date +"%b_%d_%Y_%R").out
+	else
+	 printf "\tINVAILD ENTRY FOR USER!!!!!\n\n"
+   fi 
+   
+ fi #end of while loop
+ 
+ # check if user inputs "stop" 
+ printf "  user input: " 
+ read User_Input
+ User_Input=$(echo "$User_Input" | tr '[:upper:]' '[:lower:]')
+winner="nobody" 
+
+done
+
+#LAST PRINT
+printf "\n------Exited the Game--------\n\n"

@@ -1,0 +1,6 @@
+BEGIN{print "\n       a--------------Cars from $10,000-$25,000---------------a";\
+ printf("\t%-10s %-11s   %-6s    %-9s   %-7s\n", "-BRAND-", "-MODEL-","-YEAR-" ,"-MILEAGE-" ,"-PRICE-" );}
+{if($5>10000 && $5<25000)
+	   printf("\t%-10s %-11s   %6d    %9d   %7d\n", $1, $2, $3, $4, $5);
+}\
+END{}

@@ -1,0 +1,14 @@
+BEGIN{highestPricedCar=0; Line = "";
+print "\n-----------Most Expensive Car-----------";
+printf("\t%-10s %-11s   %-4s    %-7s %-6s\n","BRAND" , "MODEL", "YEAR", "MILEAGE", "PRICE")}\
+ 
+{if($5 > highestPricedCar && $2!= "placeholder")
+   {
+	highestPricedCar = $5;
+	Line = sprintf("\t%-10s %-11s   %-4d    %-7d %-6d\n", $1, $2, $3, $4, $5);
+   }
+}
+
+END{print Line;}
+
+

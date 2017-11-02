@@ -1,0 +1,21 @@
+BEGIN{
+   a["Honda"]; a["Nissan"]; a["Subaru"]; a["Suzuki"]; a["Toyota"]; a["Mazda"];
+}
+
+!/placeholder/{a[$1] = sprintf("%s%-12s %-13s %-6d %9d %8d\n", a[$1], $1, $2, $3, $4, $5);}
+
+END{\
+   {for (i in a){
+	{print a[i] | "cat > brandLog/"i"file.log";}\
+   }}
+   {for (i in a){
+	{print "\n----------- "i" Brand Report -----------------";}\
+        {printf("\n%-12s %-13s %-6s %9s %8s\n", "-BRAND-", "-MODEL-","-YEAR-" ,"-MILEAGE-" ,"-PRICE-" );}\
+        {system("cat  brandLog/"i"file.log | sort -n --key=3,3 --key=4,4 --key=5,5");}\
+	{printf "\n";}
+   }}
+}
+
+
+
+

@@ -1,0 +1,16 @@
+BEGIN{
+	a["Honda"]=0; a["Nissan"]=0; a["Subaru"]=0;\
+	 a["Suzuki"]=0; a["Toyota"]=0; a["Mazda"]=0;\
+	{printf("\n");}\
+     }
+
+{if($2!="placeholder")
+    a[$1]++;
+}
+
+END{
+	for (i in a){
+	   print "Total" , i, "cars available:", a[i];
+   }
+   {printf("\n");}	
+}
